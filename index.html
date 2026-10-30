@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Prompt da animação no Google Flow | Augusto Fonte</title>
+<meta name="description" content="Preencha a sua ideia, copie o prompt e cole no Claude Code. Ele conduz do roteiro aos vídeos e às thumbs.">
+<meta name="robots" content="index,follow">
+<meta name="site-versao" content="2026-10-30.1">
+<meta name="theme-color" content="#1f0c33">
+<link rel="canonical" href="https://augustofonteboa-maker.github.io/prompt-animacao-flow/">
+<meta property="og:title" content="Prompt da animação no Google Flow">
+<meta property="og:description" content="Preencha a sua ideia, copie o prompt e cole no Claude Code. Ele conduz do roteiro aos vídeos e às thumbs.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:url" content="https://augustofonteboa-maker.github.io/prompt-animacao-flow/">
+<meta property="og:image" content="https://augustofonteboa-maker.github.io/prompt-animacao-flow/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+<link rel="preload" href="fonts/polysans-800.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Base: padrão aprovado de Como Eu Faço Criativos v2 + peças próprias da ferramenta. */
+@font-face{font-family:"PolySans";src:url(fonts/polysans-800.woff2) format("woff2");font-weight:800;font-display:swap}
+:root{
+  color-scheme:dark;
+  --night:#1f0c33;--night-2:#160826;--night-3:#2b1247;
+  --royal:#4a178a;--violet:#af5eff;--violet-d:#6c20c4;--violet-h:#bf7bff;
+  --lilac:#d9b3ff;--lilac-bg:#efe3ff;--paper:#faf5ff;--white:#fff;
+  --ink-2:#4a3a5c;--on-dark:#faf5ff;--on-dark-2:#cdbbe3;--mint:#5be3b5;
+  --gut:clamp(16px,4vw,32px);--max:1160px;
+  --ease:cubic-bezier(.2,.8,.2,1);
+  --title:"PolySans","Figtree",system-ui,sans-serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@property --ang{syntax:"<angle>";initial-value:0deg;inherits:false}
+@keyframes spin{to{--ang:360deg}}
+@keyframes run{to{stroke-dashoffset:-100}}
+@keyframes rotate{to{rotate:360deg}}
+@keyframes pulse{0%,16%{background:var(--violet);color:var(--night);border-color:var(--violet)}24%,100%{background:rgba(255,255,255,.07);color:var(--on-dark);border-color:rgba(255,255,255,.18)}}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--night);color:var(--on-dark);font:400 17px/1.6 var(--body);-webkit-font-smoothing:antialiased;overflow-x:clip}
+svg{display:block}
+a{color:inherit}
+h1,h2{font-family:var(--title);font-weight:800;margin:0;text-wrap:balance}
+h1{font-size:clamp(2.45rem,6vw,4.6rem);line-height:1.06;letter-spacing:-.012em}
+h2{font-size:clamp(1.6rem,3vw,2.15rem);line-height:1.12;letter-spacing:-.008em}
+p{margin:0}
+:focus-visible{outline:3px solid var(--lilac);outline-offset:2px}
+.skip{position:absolute;left:-999px;top:8px;z-index:100;background:var(--white);color:var(--night);padding:10px 16px;border-radius:10px}
+.skip:focus{left:8px}
+.wrap{width:min(var(--max),100% - 2*var(--gut));margin-inline:auto;position:relative;z-index:2}
+.logo{display:inline-block;color:var(--paper)}
+.logo svg{height:46px;width:auto;aspect-ratio:1200/456}
+
+/* Logo em contorno com o brilho correndo */
+.bgstar{position:absolute;pointer-events:none;z-index:1;overflow:visible;aspect-ratio:1}
+.bgstar path{fill:none}
+.bgstar .o{stroke:rgba(217,179,255,.2);stroke-width:var(--sw,2)}
+.bgstar .g{stroke:url(#glowGrad);stroke-width:calc(var(--sw,2)*1.8);stroke-linecap:round;stroke-dasharray:9 91;animation:run 7s linear infinite;filter:drop-shadow(0 0 6px rgba(217,179,255,.9))}
+.bgstar[data-tone="ink"] .o{stroke:rgba(106,34,194,.2)}
+.bgstar[data-tone="ink"] .g{filter:drop-shadow(0 0 5px rgba(175,94,255,.7))}
+
+/* Topo */
+.hero{position:relative;overflow:hidden;padding-block:clamp(26px,4vw,40px) clamp(56px,8vw,96px);background:radial-gradient(70% 90% at 82% 42%,rgba(175,94,255,.3),transparent 70%),var(--night)}
+.hero .bgstar{width:clamp(520px,58vw,800px);right:-24%;top:-46%}
+.hero__in{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(24px,4vw,56px);align-items:center;margin-top:clamp(36px,6vw,64px)}
+.hero h1 em{font-style:normal;color:var(--violet)}
+.lead{margin-top:20px;max-width:50ch;font-size:clamp(1.1rem,1.1vw + .75rem,1.32rem);line-height:1.5;color:var(--lilac)}
+
+/* Botão com borda girando */
+.btn{position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 26px;border:0;border-radius:999px;background:var(--violet);color:var(--night);font:800 16px/1.1 var(--body);text-decoration:none;cursor:pointer;transition:transform .2s var(--ease),background .25s}
+.btn::before{content:"";position:absolute;inset:-3px;border-radius:inherit;z-index:-2;background:conic-gradient(from var(--ang),transparent 0deg 200deg,#fff 285deg,var(--lilac) 320deg,transparent 360deg);animation:spin 3.4s linear infinite}
+.btn::after{content:"";position:absolute;inset:0;border-radius:inherit;z-index:-1;background:inherit;transition:background .25s}
+.btn:hover{background:var(--white)}
+.btn:active{transform:scale(.97)}
+.btn svg{width:20px;height:20px;flex:none}
+.btn--ghost{min-height:44px;padding:0 16px;background:transparent;color:var(--lilac);border:1px solid rgba(217,179,255,.5);font-weight:700;font-size:15px}
+.btn--ghost::before,.btn--ghost::after{display:none}
+.btn--ghost:hover{background:var(--lilac);color:var(--night)}
+
+/* Mapa: as fases em volta da estrela */
+.orbit{position:relative;width:100%;max-width:440px;aspect-ratio:1;margin-inline:auto}
+.orbit__lines{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.orbit__ring{fill:none;stroke:rgba(217,179,255,.28);stroke-width:1.2;stroke-dasharray:3 7;transform-origin:50% 50%;transform-box:view-box;animation:rotate 60s linear infinite}
+.orbit__spoke{stroke:rgba(217,179,255,.2);stroke-width:1.2}
+.orbit__dot{fill:var(--white);filter:drop-shadow(0 0 5px var(--lilac))}
+.orbit__core{position:absolute;left:50%;top:50%;width:30%;aspect-ratio:1;translate:-50% -50%;display:grid;place-items:center;border-radius:50%;background:rgba(175,94,255,.2);border:1px solid rgba(217,179,255,.4);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:var(--paper)}
+.orbit__core svg{width:62%;height:62%}
+.chip{position:absolute;left:var(--x);top:var(--y);translate:-50% -50%;padding:7px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.07);font-size:14px;font-weight:600;white-space:nowrap;animation:pulse 9s linear infinite;animation-delay:calc(var(--i)*1.5s)}
+
+/* Passos */
+.steps-sec{position:relative;overflow:hidden;background:var(--lilac);color:var(--night);padding-block:clamp(44px,6vw,72px)}
+.steps-sec .bgstar{width:clamp(420px,46vw,640px);right:-12%;top:-40%}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:0;padding:0;list-style:none;counter-reset:s}
+.steps li{counter-increment:s;display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 16px;padding:22px;border-radius:18px;background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.8);transition:background .3s,color .3s,transform .3s var(--ease);min-width:0}
+.steps li::before{content:counter(s);grid-row:span 2;font:800 44px/1 var(--title);color:var(--violet-d);transition:color .3s}
+.steps strong{font-size:18px;font-weight:800;line-height:1.25}
+.steps span{color:var(--ink-2);font-size:16px;line-height:1.45;transition:color .3s}
+.steps li:hover{background:var(--violet-d);color:var(--white);transform:translateY(-3px)}
+.steps li:hover::before,.steps li:hover span{color:var(--white)}
+
+/* Ferramenta */
+.tool{position:relative;overflow:clip;background:radial-gradient(50% 45% at 12% 20%,rgba(175,94,255,.32),transparent 70%),radial-gradient(45% 45% at 92% 72%,rgba(106,38,196,.42),transparent 70%),var(--night-2);padding-block:clamp(48px,7vw,88px)}
+.tool .bgstar{width:clamp(460px,52vw,760px);right:-20%;top:-10%}
+.grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:24px;align-items:start}
+.card{min-width:0;padding:clamp(18px,2.4vw,26px);border-radius:24px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);-webkit-backdrop-filter:blur(18px) saturate(140%);backdrop-filter:blur(18px) saturate(140%);box-shadow:0 20px 50px -24px rgba(8,0,20,.6),inset 0 1px 0 rgba(255,255,255,.12)}
+.card--out{position:sticky;top:16px}
+.hint{margin:6px 0 18px;color:var(--on-dark-2);font-size:16px}
+.hint mark,.fill{background:var(--lilac);color:var(--night);border-radius:4px;padding:0 4px}
+form{display:grid;gap:15px}
+label{display:grid;gap:6px;font-weight:700;font-size:15px}
+input,select,textarea{width:100%;min-width:0;min-height:46px;padding:10px 13px;border-radius:12px;border:1px solid rgba(217,179,255,.3);background:rgba(22,8,38,.6);color:var(--on-dark);font:400 16px/1.4 var(--body);transition:border-color .2s,background .2s}
+input::placeholder,textarea::placeholder{color:var(--on-dark-2);opacity:.8}
+input:hover,select:hover,textarea:hover{border-color:var(--lilac)}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--violet);outline-offset:0;border-color:var(--violet)}
+select{-webkit-appearance:none;appearance:none;padding-right:38px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14' fill='none' stroke='%23d9b3ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m2 5 5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center}
+option{background:var(--night);color:var(--on-dark)}
+textarea{min-height:96px;resize:vertical}
+.top{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.acts{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.meter{display:flex;align-items:center;gap:10px;margin:14px 0 10px;color:var(--on-dark-2);font-size:15px}
+.meter i{display:block;flex:1;height:6px;border-radius:9px;background:rgba(255,255,255,.12);overflow:hidden}
+.meter b{display:block;height:100%;width:0;border-radius:inherit;background:var(--mint);transition:width .35s var(--ease)}
+#status{min-height:24px;margin:0 0 8px;color:var(--mint);font-size:15px;font-weight:600}
+pre{margin:0;max-height:min(66vh,640px);overflow:auto;padding:18px;border-radius:14px;background:rgba(22,8,38,.72);border:1px solid rgba(217,179,255,.2);white-space:pre-wrap;overflow-wrap:anywhere;font:400 14px/1.65 var(--mono);color:var(--on-dark);scrollbar-color:var(--violet) transparent}
+pre mark{background:var(--lilac);color:var(--night);border-radius:3px;padding:0 3px}
+pre .ok{background:rgba(91,227,181,.16);color:var(--mint);border-radius:3px;padding:0 3px}
+
+/* Rodapé */
+.foot{position:relative;overflow:hidden;background:linear-gradient(160deg,#af5eff 0%,#7a2fd1 100%);color:var(--night);padding-block:clamp(36px,5vw,52px)}
+.foot .bgstar{width:clamp(320px,34vw,480px);left:-9%;top:-70%}
+.foot__in{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 32px}
+.foot .logo{color:var(--night)}
+.foot nav{display:flex;flex-wrap:wrap;gap:6px 22px}
+.foot a{display:inline-flex;align-items:center;min-height:44px;font-weight:700;text-underline-offset:4px}
+.foot a:hover{color:var(--white)}
+
+/* Barra de copiar no celular */
+.dock{position:fixed;left:0;right:0;bottom:0;z-index:40;display:none;align-items:center;gap:12px;padding:10px var(--gut) calc(10px + env(safe-area-inset-bottom,0px));background:rgba(31,12,51,.82);border-top:1px solid rgba(217,179,255,.3);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
+.dock span{flex:1;min-width:0;font-size:14px;line-height:1.25;color:var(--on-dark-2)}
+
+/* Entrada: só existe com JS ligado */
+.js .rv{opacity:0;translate:0 18px;transition:opacity .7s var(--ease),translate .7s var(--ease);transition-delay:calc(var(--d,0)*90ms)}
+.js .rv.on{opacity:1;translate:0 0}
+
+@media (max-width:980px){
+  .hero__in{grid-template-columns:minmax(0,1fr)}
+  .orbit{display:none}
+  .grid,.steps{grid-template-columns:minmax(0,1fr)}
+  .card--out{position:static}
+  pre{max-height:480px}
+  .dock.show{display:flex}
+  .tool{padding-bottom:calc(clamp(48px,7vw,88px) + 60px)}
+}
+@media (max-width:640px){
+  .hero,.hero__in{text-align:center}
+  .logo{margin-inline:auto}
+  .hero__logo{display:flex;justify-content:center}
+  .lead{margin-inline:auto}
+  .hero .btn{width:100%}
+  .hero .bgstar,.steps-sec .bgstar{display:none}
+  .foot__in{flex-direction:column;text-align:center}
+  .foot nav{justify-content:center}
+  #t2{width:100%}
+  .top,.acts{justify-content:center;text-align:center}
+  .acts,.acts .btn{width:100%}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .js .rv{opacity:1;translate:0 0}
+  .orbit__dot{display:none}
+}
+@media (prefers-reduced-transparency:reduce){
+  .card,.dock,.orbit__core{-webkit-backdrop-filter:none;backdrop-filter:none;background:var(--night-3)}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><linearGradient id="glowGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#af5eff"/></linearGradient></defs><symbol id="star" viewBox="0 0 456.21 456.21"><path fill="currentColor" d="M245.32,0h-34.48c0,116.27-94.59,210.86-210.84,210.86v34.48c116.25,0,210.84,94.59,210.84,210.86h34.48c0-116.27,94.57-210.86,210.84-210.86v-34.48c-116.27,0-210.84-94.59-210.84-210.86ZM228.08,365.86c-24.94-62.74-75.02-112.82-137.74-137.76,62.72-24.91,112.8-75.02,137.74-137.74,24.94,62.72,75.02,112.82,137.74,137.74-62.72,24.94-112.8,75.02-137.74,137.76Z"/><path fill="currentColor" d="M140.65,451.36c-12.48-2.91-24.48-7.11-35.82-12.48-7.37-44.72-42.78-80.13-87.5-87.48-5.34-11.36-9.57-23.34-12.48-35.82,73.75,2.5,133.28,62.03,135.8,135.78Z"/><path fill="currentColor" d="M451.36,315.58c-2.91,12.48-7.13,24.44-12.48,35.8v.02c-44.76,7.33-80.19,42.74-87.54,87.5-11.34,5.34-23.34,9.57-35.82,12.48,2.52-73.77,62.07-133.32,135.84-135.8Z"/><path fill="currentColor" d="M140.65,4.85c-2.5,73.77-62.03,133.3-135.8,135.8,2.91-12.48,7.13-24.48,12.48-35.82,44.72-7.37,80.13-42.78,87.5-87.5,11.34-5.34,23.34-9.57,35.82-12.48Z"/><path fill="currentColor" d="M451.36,140.65c-73.79-2.48-133.34-62.03-135.84-135.82,12.48,2.93,24.48,7.13,35.82,12.48,7.35,44.76,42.78,80.19,87.54,87.52,5.34,11.34,9.57,23.34,12.48,35.82Z"/></symbol><symbol id="logo" viewBox="0 0 1200.45 456.21"><path fill="currentColor" d="M566.09,152.04c5.96-4.48,13.89-7.01,23.77-7.58l8.69-.34c7.72-.23,13.23-.74,16.53-1.53,3.29-.79,4.88-2.73,4.77-5.79-.11-3.86-1.42-6.99-3.92-9.37-2.5-2.38-7.21-3.58-14.14-3.58s-12.04,1.22-14.99,3.66c-2.95,2.44-4.77,5.76-5.45,9.97h-21.47c1.48-10.67,6.19-18.57,14.14-23.68,7.95-5.11,17.43-7.67,28.45-7.67,12.04,0,21.58,2.96,28.62,8.86,7.04,5.91,10.56,16.81,10.56,32.71v49.75h-21.81v-6.3c0-3.41.85-6.7,2.56-9.88.45-1.13.68-1.98.68-2.55,0-.68-.29-1.13-.85-1.36l-.68-.17c-.68,0-1.19.31-1.53.94-.34.63-.51,1-.51,1.11-5.34,13.06-15.67,19.59-31.01,19.59-5.57,0-10.76-1.14-15.59-3.41-4.83-2.27-8.66-5.39-11.5-9.37-2.84-3.98-4.26-8.4-4.26-13.29,0-9.31,2.98-16.21,8.94-20.7ZM610.9,156.3c-3.69.97-9.45,1.85-17.29,2.64-4.88.57-8.55,1.85-10.99,3.83-2.44,1.99-3.66,4.91-3.66,8.77,0,3.3,1.28,5.96,3.83,8.01,2.55,2.04,5.88,3.07,9.97,3.07,1.47,0,2.61-.05,3.41-.17,6.7-.91,12.29-3.8,16.78-8.69,4.49-4.88,6.79-12.44,6.9-22.66-2.27,2.5-5.25,4.23-8.94,5.2Z"/><path fill="currentColor" d="M665.33,189.09c-5.79-6.47-8.69-15.96-8.69-28.45v-53.15h21.81v45.66c0,9.77,1.3,16.53,3.92,20.27,2.61,3.75,6.87,5.62,12.78,5.62,4.2,0,8.15-1.48,11.84-4.43,3.69-2.95,6.67-7.1,8.94-12.44,2.27-5.34,3.41-11.36,3.41-18.06v-36.63h21.81v89.95h-21.81v-5.62c0-2.5.23-4.63.68-6.39.45-1.76,1.13-3.72,2.04-5.88.57-1.47.85-2.39.85-2.73,0-1.02-.45-1.59-1.36-1.7h-.51c-.8,0-1.48.68-2.04,2.04-2.84,5.68-6.79,10.71-11.84,15.08-5.06,4.37-11.1,6.56-18.14,6.56-9.99,0-17.89-3.24-23.68-9.71Z"/><path fill="currentColor" d="M758.35,128.19c3.29-6.76,7.92-12.12,13.89-16.1,5.96-3.97,12.75-5.96,20.36-5.96,12.27,0,21.75,5.45,28.45,16.36.79,1.7,1.7,2.33,2.73,1.87.57-.11.85-.57.85-1.36,0-.57-.4-1.64-1.19-3.24-1.25-2.39-1.88-5.11-1.88-8.18v-4.09h21.81v80.41c0,14.2-3.92,25.01-11.76,32.45-7.84,7.44-18.74,11.16-32.71,11.16s-23.54-3.04-30.75-9.11c-7.21-6.08-11.22-13.72-12.01-22.91h21.47c1.25,9.54,8.23,14.31,20.96,14.31,15.33,0,23-8.35,23-25.04,0-2.95.62-5.62,1.88-8.01.79-1.59,1.19-2.61,1.19-3.07,0-.57-.29-.96-.85-1.19l-.68-.17c-.68,0-1.19.25-1.53.77-.34.51-.51.82-.51.94-6.47,11.13-15.96,16.7-28.45,16.7-7.61,0-14.4-1.99-20.36-5.96-5.96-3.98-10.59-9.34-13.89-16.1-3.3-6.76-4.94-14.17-4.94-22.23s1.64-15.47,4.94-22.23ZM810.14,171.63c3.63-2.22,6.44-5.2,8.43-8.94,1.99-3.75,2.98-7.84,2.98-12.27s-.99-8.52-2.98-12.27c-1.99-3.75-4.8-6.73-8.43-8.94-3.64-2.22-7.78-3.32-12.44-3.32-7.27,0-12.84,2.33-16.7,6.99-3.86,4.66-5.79,10.51-5.79,17.55s1.93,12.89,5.79,17.55c3.86,4.66,9.43,6.99,16.7,6.99,4.66,0,8.8-1.11,12.44-3.32Z"/><path fill="currentColor" d="M867.04,189.09c-5.79-6.47-8.69-15.96-8.69-28.45v-53.15h21.81v45.66c0,9.77,1.3,16.53,3.92,20.27,2.61,3.75,6.87,5.62,12.78,5.62,4.2,0,8.15-1.48,11.84-4.43,3.69-2.95,6.67-7.1,8.94-12.44,2.27-5.34,3.41-11.36,3.41-18.06v-36.63h21.81v89.95h-21.81v-5.62c0-2.5.23-4.63.68-6.39.45-1.76,1.13-3.72,2.04-5.88.57-1.47.85-2.39.85-2.73,0-1.02-.45-1.59-1.36-1.7h-.51c-.8,0-1.48.68-2.04,2.04-2.84,5.68-6.79,10.71-11.84,15.08-5.06,4.37-11.1,6.56-18.14,6.56-9.99,0-17.89-3.24-23.68-9.71Z"/><path fill="currentColor" d="M981.27,177.51c3.01,2.84,8.09,4.26,15.25,4.26,6.59,0,11.33-.96,14.23-2.9,2.89-1.93,4.34-4.54,4.34-7.84,0-2.16-.94-3.8-2.81-4.94-1.87-1.13-4.46-2.01-7.75-2.64-3.3-.62-8.46-1.33-15.5-2.13-12.27-1.48-20.53-4.8-24.79-9.97-4.26-5.16-6.39-11.1-6.39-17.8,0-5,1.48-9.57,4.43-13.72,2.95-4.14,7.33-7.46,13.12-9.97,5.79-2.5,12.78-3.75,20.95-3.75,11.47,0,20.5,2.7,27.09,8.09,6.59,5.4,10.16,12.35,10.73,20.87h-21.47c-.34-3.41-1.79-6.25-4.34-8.52s-6.73-3.41-12.52-3.41c-10.79,0-16.18,3.07-16.18,9.2,0,1.7.43,3.13,1.28,4.26.85,1.14,2.7,2.16,5.54,3.07,2.84.91,7.04,1.65,12.61,2.22,11.93,1.25,21.21,4,27.86,8.26s9.97,10.65,9.97,19.17c0,9.43-3.55,16.7-10.65,21.81-7.1,5.11-17.24,7.67-30.41,7.67s-22.57-2.81-29.56-8.43c-6.99-5.62-10.71-13.37-11.16-23.25h21.47c.11,4.09,1.67,7.55,4.68,10.39Z"/><path fill="currentColor" d="M1079.15,126.57v41.06c0,3.64.14,6.13.43,7.5.28,1.36,1.02,2.24,2.22,2.64,1.19.4,3.43.6,6.73.6h15.16v19.08h-19.76c-6.25,0-11.3-.82-15.16-2.47-3.86-1.65-6.73-4.46-8.6-8.43-1.87-3.97-2.81-9.54-2.81-16.7v-43.27h-16.35v-19.08h16.35v-24.53h21.81v24.53h24.53v19.08h-24.53Z"/><path fill="currentColor" d="M1179.32,112.26c6.82,4.09,12.04,9.66,15.67,16.7,3.63,7.04,5.45,14.88,5.45,23.51s-1.82,16.47-5.45,23.51c-3.64,7.04-8.86,12.61-15.67,16.7-6.81,4.09-14.76,6.13-23.85,6.13s-17.04-2.04-23.85-6.13c-6.81-4.09-12.04-9.65-15.67-16.7-3.64-7.04-5.45-14.88-5.45-23.51s1.82-16.47,5.45-23.51c3.63-7.04,8.86-12.61,15.67-16.7,6.82-4.09,14.76-6.13,23.85-6.13s17.04,2.04,23.85,6.13ZM1172.42,171.46c4.14-5.05,6.22-11.39,6.22-19s-2.07-13.94-6.22-19c-4.15-5.05-9.79-7.58-16.95-7.58s-12.81,2.53-16.95,7.58c-4.15,5.06-6.22,11.39-6.22,19s2.07,13.94,6.22,19c4.14,5.06,9.8,7.58,16.95,7.58s12.8-2.53,16.95-7.58Z"/><path fill="currentColor" d="M592.5,268.9c-1.19.4-1.93,1.25-2.22,2.55-.29,1.31-.43,3.78-.43,7.41v3.06h24.53v19.08h-24.53v70.87h-21.81v-70.87h-13.63v-19.08h13.63v-5.11c0-7.16.94-12.72,2.81-16.7,1.88-3.97,4.74-6.79,8.6-8.43,3.86-1.65,8.92-2.47,15.16-2.47h19.76v19.08h-15.16c-3.29,0-5.54.2-6.73.6Z"/><path fill="currentColor" d="M687.31,286.71c6.82,4.09,12.04,9.66,15.67,16.7,3.63,7.04,5.45,14.88,5.45,23.51s-1.82,16.47-5.45,23.51c-3.64,7.04-8.86,12.61-15.67,16.7-6.81,4.09-14.76,6.13-23.85,6.13s-17.04-2.04-23.85-6.13c-6.81-4.09-12.04-9.65-15.67-16.7-3.64-7.04-5.45-14.88-5.45-23.51s1.82-16.47,5.45-23.51c3.63-7.04,8.86-12.61,15.67-16.7,6.82-4.09,14.76-6.13,23.85-6.13s17.04,2.05,23.85,6.13ZM680.41,345.91c4.14-5.06,6.22-11.39,6.22-19s-2.07-13.94-6.22-19c-4.15-5.05-9.79-7.58-16.95-7.58s-12.81,2.53-16.95,7.58c-4.15,5.06-6.22,11.39-6.22,19s2.07,13.94,6.22,19c4.14,5.05,9.8,7.58,16.95,7.58s12.8-2.53,16.95-7.58Z"/><path fill="currentColor" d="M795.15,290.28c5.79,6.48,8.69,15.96,8.69,28.45v53.15h-21.81v-45.66c0-9.77-1.31-16.53-3.92-20.27-2.61-3.75-6.87-5.62-12.78-5.62-4.2,0-8.15,1.48-11.84,4.43-3.69,2.95-6.67,7.1-8.94,12.44-2.27,5.34-3.41,11.36-3.41,18.06v36.63h-21.81v-89.95h21.81v5.62c0,2.62-.23,4.83-.68,6.64-.46,1.82-1.14,3.69-2.04,5.62-.57,1.36-.85,2.28-.85,2.73,0,1.02.45,1.59,1.36,1.7h.51c.79,0,1.48-.68,2.04-2.04,2.5-5.56,6.36-10.57,11.58-14.99,5.22-4.43,11.36-6.65,18.4-6.65,9.99,0,17.89,3.24,23.68,9.71Z"/><path fill="currentColor" d="M848.82,301.02v41.06c0,3.63.14,6.13.43,7.49.28,1.36,1.02,2.25,2.22,2.64,1.19.4,3.43.6,6.73.6h15.16v19.08h-19.76c-6.25,0-11.3-.82-15.16-2.47-3.86-1.65-6.73-4.46-8.6-8.44-1.87-3.97-2.81-9.54-2.81-16.7v-43.27h-16.35v-19.08h16.35v-24.53h21.81v24.53h24.53v19.08h-24.53Z"/><path fill="currentColor" d="M966.88,332.37h-65.42c.79,6.81,3.29,12.15,7.5,16.01,4.2,3.86,9.71,5.79,16.53,5.79,9.2,0,15.28-4.54,18.23-13.63h22.15c-2.04,9.88-6.45,17.8-13.2,23.76-6.76,5.96-15.87,8.94-27.34,8.94-9.43,0-17.55-1.98-24.36-5.96-6.81-3.98-11.98-9.46-15.5-16.44-3.52-6.99-5.28-14.96-5.28-23.94s1.82-17.46,5.45-24.45c3.63-6.99,8.83-12.38,15.59-16.18,6.76-3.81,14.68-5.71,23.76-5.71,7.38,0,14.28,1.56,20.7,4.68,6.42,3.13,11.64,8.07,15.67,14.82,4.03,6.76,6.05,15.3,6.05,25.64,0,1.82-.17,4.03-.51,6.64ZM945.58,317.37c-.45-5.68-2.38-10.28-5.79-13.8-3.41-3.52-8.12-5.28-14.14-5.28-12.95,0-20.73,6.36-23.34,19.08h43.27Z"/><path fill="currentColor" d="M245.32,0h-34.48c0,116.27-94.59,210.86-210.84,210.86v34.48c116.25,0,210.84,94.59,210.84,210.86h34.48c0-116.27,94.57-210.86,210.84-210.86v-34.48c-116.27,0-210.84-94.59-210.84-210.86ZM228.08,365.86c-24.94-62.74-75.02-112.82-137.74-137.76,62.72-24.91,112.8-75.02,137.74-137.74,24.94,62.72,75.02,112.82,137.74,137.74-62.72,24.94-112.8,75.02-137.74,137.76Z"/><path fill="currentColor" d="M140.65,451.36c-12.48-2.91-24.48-7.11-35.82-12.48-7.37-44.72-42.78-80.13-87.5-87.48-5.34-11.36-9.57-23.34-12.48-35.82,73.75,2.5,133.28,62.03,135.8,135.78Z"/><path fill="currentColor" d="M451.36,315.58c-2.91,12.48-7.13,24.44-12.48,35.8v.02c-44.76,7.33-80.19,42.74-87.54,87.5-11.34,5.34-23.34,9.57-35.82,12.48,2.52-73.77,62.07-133.32,135.84-135.8Z"/><path fill="currentColor" d="M140.65,4.85c-2.5,73.77-62.03,133.3-135.8,135.8,2.91-12.48,7.13-24.48,12.48-35.82,44.72-7.37,80.13-42.78,87.5-87.5,11.34-5.34,23.34-9.57,35.82-12.48Z"/><path fill="currentColor" d="M451.36,140.65c-73.79-2.48-133.34-62.03-135.84-135.82,12.48,2.93,24.48,7.13,35.82,12.48,7.35,44.76,42.78,80.19,87.54,87.52,5.34,11.34,9.57,23.34,12.48,35.82Z"/></symbol></svg>
+<a class="skip" href="#montar">Pular para a sua ideia</a>
+
+<header class="hero">
+  <svg class="bgstar" data-star viewBox="0 0 456.21 456.21" aria-hidden="true"></svg>
+  <div class="wrap">
+    <div class="hero__logo"><span class="logo"><svg viewBox="0 0 1200.45 456.21" role="img" aria-label="Augusto Fonte"><use href="#logo"/></svg></span></div>
+    <div class="hero__in">
+      <div>
+        <h1>Prompt da animação no <em>Google Flow</em></h1>
+        <p class="lead">Preencha a sua ideia, copie o prompt e cole no Claude Code. Ele conduz do roteiro aos vídeos e às thumbs.</p>
+      </div>
+      <div class="orbit" aria-hidden="true">
+        <svg class="orbit__lines" viewBox="0 0 440 440">
+          <circle class="orbit__ring" cx="220" cy="220" r="168"/>
+          <g id="spokes"></g>
+        </svg>
+        <div class="orbit__core"><svg viewBox="0 0 456.21 456.21"><use href="#star"/></svg></div>
+        <span class="chip" style="--x:50%;--y:11.8%;--i:0">Roteiro</span>
+        <span class="chip" style="--x:83%;--y:30.9%;--i:1">Personagens</span>
+        <span class="chip" style="--x:83%;--y:69.1%;--i:2">Cenários</span>
+        <span class="chip" style="--x:50%;--y:88.2%;--i:3">Vídeos</span>
+        <span class="chip" style="--x:17%;--y:69.1%;--i:4">Voz</span>
+        <span class="chip" style="--x:17%;--y:30.9%;--i:5">Thumbs</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="steps-sec" aria-label="Como usar">
+    <svg class="bgstar" data-star data-tone="ink" viewBox="0 0 456.21 456.21" aria-hidden="true"></svg>
+    <div class="wrap">
+      <ol class="steps">
+        <li class="rv"><strong>Prepare o ambiente.</strong><span>Abra o Google Flow logado no Chrome, com a extensão do Claude conectada.</span></li>
+        <li class="rv" style="--d:1"><strong>Preencha a ideia.</strong><span>Os campos em destaque no prompt são trocados pelo que você escrever aqui.</span></li>
+        <li class="rv" style="--d:2"><strong>Copie e cole.</strong><span>Envie no Claude Code e acompanhe cada etapa.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="tool" id="montar">
+    <svg class="bgstar" data-star viewBox="0 0 456.21 456.21" aria-hidden="true"></svg>
+    <div class="wrap grid">
+      <section class="card rv" aria-labelledby="t1">
+        <h2 id="t1">Sua ideia</h2>
+        <p class="hint">Campo vazio continua no prompt como <mark>lacuna em destaque</mark>.</p>
+        <form id="f" onsubmit="return false">
+          <label for="c0">História ou tema<textarea id="c0" placeholder="Ex.: um farol solitário que faz amizade com uma gaivota"></textarea></label>
+          <label for="c1">Estilo visual<input id="c1" placeholder="Ex.: papel recortado"></label>
+          <label for="c2">Formato<select id="c2"><option value="">Escolha</option><option>Vertical 9:16</option><option>Horizontal 16:9</option></select></label>
+          <label for="c3">Duração<input id="c3" placeholder="Ex.: 3 episódios de 30 segundos"></label>
+          <label for="c4">Som<select id="c4"><option value="">Escolha</option><option>Narrador em off e trilha</option><option>Personagens falando</option><option>Só trilha</option></select></label>
+          <label for="c5">Idioma<input id="c5" placeholder="Ex.: português do Brasil"></label>
+          <label for="c6">Uso<select id="c6"><option value="">Escolha</option><option>Pessoal</option><option>Redes sociais</option><option>Comercial</option></select></label>
+          <label for="c7">Créditos do Flow que pode gastar<input id="c7" inputmode="numeric" placeholder="Ex.: 300"></label>
+          <label for="c8">Aprovação das gerações<select id="c8"><option value="">Escolha</option><option>Pedir minha aprovação</option><option>Aprovar automaticamente</option></select></label>
+        </form>
+      </section>
+      <section class="card card--out rv" style="--d:1" aria-labelledby="t2">
+        <div class="top">
+          <h2 id="t2">Prompt pronto</h2>
+          <div class="acts">
+            <button type="button" class="btn btn--ghost" id="limpar">Limpar campos</button>
+            <button type="button" class="btn" id="copiar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2.5"/><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"/></svg>Copiar prompt</button>
+          </div>
+        </div>
+        <div class="meter"><i><b id="barra"></b></i><span id="contagem">0 de 9</span></div>
+        <p id="status" role="status"></p>
+        <pre id="saida" tabindex="0" aria-label="Prompt pronto"></pre>
+      </section>
+    </div>
+  </section>
+</main>
+
+<div class="dock" id="dock">
+  <span id="dockTxt">0 de 9</span>
+  <button type="button" class="btn" id="copiar2">Copiar prompt</button>
+</div>
+
+<footer class="foot">
+  <svg class="bgstar" data-star data-tone="ink" viewBox="0 0 456.21 456.21" aria-hidden="true"></svg>
+  <div class="wrap foot__in">
+    <span class="logo"><svg viewBox="0 0 1200.45 456.21" role="img" aria-label="Augusto Fonte"><use href="#logo"/></svg></span>
+    <nav aria-label="Augusto Fonte nas redes">
+      <a href="https://www.youtube.com/@augustofontedsg" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://www.instagram.com/_augustofonte/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://augustofonte.com" target="_blank" rel="noopener">augustofonte.com</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+const MODELO = "Você vai ser o diretor da minha animação. Quero criar uma história em vídeo no Google Flow, do roteiro ao vídeo final, usando o Flow que está aberto e logado no meu Chrome.\n\n## Minha ideia\n\n- História: [DESCREVA A SUA HISTÓRIA OU O TEMA]\n- Estilo visual: [EX.: MASSINHA, PAPEL RECORTADO, AQUARELA, 3D, ANIME]\n- Formato: [VERTICAL 9:16 OU HORIZONTAL 16:9]\n- Duração: [EX.: 1 VÍDEO DE 30 SEGUNDOS OU 5 EPISÓDIOS DE 30 SEGUNDOS]\n- Som: [NARRADOR EM OFF, PERSONAGENS FALANDO OU SÓ TRILHA]\n- Idioma: [EX.: PORTUGUÊS DO BRASIL]\n- Uso: [PESSOAL, REDES SOCIAIS OU COMERCIAL]\n- Créditos do Flow que posso gastar: [QUANTIDADE]\n- Aprovação das gerações: [PEDIR MINHA APROVAÇÃO OU APROVAR AUTOMATICAMENTE]\n\n## Como trabalhar\n\nAntes de gerar, veja meu saldo de créditos e confira na tela do Flow e na ajuda oficial os limites atuais: modelos, duração por clipe, formatos, resolução e preço. Me mostre um resumo curto. Se faltar algo importante, faça até 4 perguntas. Trabalhe nesta ordem, conferindo cada etapa antes de seguir.\n\n### 1. Roteiro\n\nEscreva a história com começo, meio e fim. Divida em cenas que caibam no limite de duração de um clipe. Para cada cena, informe duração, imagem e fala, confirmando que a fala cabe no tempo. Se for mais de um vídeo, organize em ordem de história. Me mostre o roteiro antes de continuar.\n\n### 2. Identidade visual\n\nCrie um bloco fixo de texto que descreva o estilo, a textura, a luz e o que evitar. Repita esse bloco em todos os pedidos, para o visual não mudar entre as imagens.\n\n### 3. Personagens\n\nListe só os personagens que aparecem no roteiro. Crie cada um separadamente na área de personagens do Flow, como character sheet: fundo neutro, quatro vistas (frente, três quartos, perfil e costas), três expressões e nenhum texto. Compare os personagens entre si e ajuste quem parecer de outro filme. Se refizer um personagem, confira se a versão final ficou salva.\n\n### 4. Cenários\n\nGere cada cenário vazio, sem personagens, no formato do vídeo e com espaço livre para a ação.\n\n### 5. Quadros iniciais\n\nGere uma imagem para o início de cada cena, usando os personagens e cenários como referência. Corrija o que estiver errado antes de animar, porque imagem custa menos que vídeo.\n\n### 6. Teste\n\nEscolha a cena mais difícil e gere só ela na menor qualidade. Confira movimento, consistência dos personagens e preço. Só gere o restante depois que o teste funcionar.\n\n### 7. Vídeos\n\nGere um clipe por cena a partir dos quadros iniciais, em poucos pedidos por vez. Baixe os clipes e confira nome, duração e conteúdo de cada um. Se uma geração falhar, olhe a causa antes de repetir. Se uma tela der erro, confira o que foi criado antes de reenviar, para não pagar em dobro.\n\n### 8. Voz\n\nSe houver fala, teste a mesma frase em até 3 vozes com a menor quantidade de créditos e me diga qual recomenda e por quê. Use a mesma voz em todas as falas. Depois de gerar, transcreva as falas e compare com o roteiro.\n\n### 9. Montagem\n\nJunte os clipes na ordem, com narração, trilha e efeitos que combinem com a história. Use apenas material que eu possa usar. Confira duração, volume, cortes e sincronia de cada fala com sua cena. Se forem vários episódios, entregue também um vídeo completo.\n\n### 10. Thumbs\n\nCrie uma capa para cada vídeo, com um elemento em destaque e até 4 palavras. Confira a grafia e a leitura em tamanho de celular.\n\n### 11. Entrega\n\nOrganize tudo em uma pasta com três partes: VIDEOS FINAIS, THUMBS e PRODUCAO. Me diga onde estão os arquivos, quantos créditos usou, o que foi conferido e o que eu ainda preciso avaliar.\n\n## Regras\n\n- Respeite o limite de créditos e me avise antes de ultrapassá-lo. Reserve parte do saldo para refazer cenas.\n- Antes de cada geração, confirme modelo, formato, duração, resolução e quantidade de resultados.\n- Envie cada pedido ao Flow em uma só linha. Olhe a tela antes de clicar, porque a interface pode mudar.\n- Não copie personagens, marcas ou estilos protegidos. Se o uso for comercial, me avise de qualquer risco de direitos antes de publicar.\n- Não apague nada sem a minha autorização.\n- Não diga que algo está pronto sem conferir o arquivo final. Como você não ouve áudio, me avise quando só eu puder avaliar o som.\n";
+const LACUNAS = [
+  "[DESCREVA A SUA HISTÓRIA OU O TEMA]","[EX.: MASSINHA, PAPEL RECORTADO, AQUARELA, 3D, ANIME]","[VERTICAL 9:16 OU HORIZONTAL 16:9]",
+  "[EX.: 1 VÍDEO DE 30 SEGUNDOS OU 5 EPISÓDIOS DE 30 SEGUNDOS]","[NARRADOR EM OFF, PERSONAGENS FALANDO OU SÓ TRILHA]","[EX.: PORTUGUÊS DO BRASIL]",
+  "[PESSOAL, REDES SOCIAIS OU COMERCIAL]","[QUANTIDADE]","[PEDIR MINHA APROVAÇÃO OU APROVAR AUTOMATICAMENTE]"
+];
+const campos = LACUNAS.map((_, i) => document.getElementById("c" + i));
+const saida = document.getElementById("saida");
+const status = document.getElementById("status");
+const esc = s => s.replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+const valor = i => campos[i].value.trim();
+function texto(){ let t = MODELO; LACUNAS.forEach((l, i) => { const v = valor(i); if (v) t = t.replace(l, () => v); }); return t; }
+function faltam(){ return LACUNAS.filter((_, i) => !valor(i)).length; }
+function desenhar(){
+  let h = esc(MODELO);
+  LACUNAS.forEach((l, i) => {
+    const v = valor(i);
+    h = h.replace(esc(l), () => v ? '<span class="ok">' + esc(v) + '</span>' : '<mark>' + esc(l) + '</mark>');
+  });
+  saida.innerHTML = h;
+  const feitos = LACUNAS.length - faltam();
+  const rotulo = feitos + " de " + LACUNAS.length + " preenchidos";
+  document.getElementById("contagem").textContent = rotulo;
+  document.getElementById("dockTxt").textContent = rotulo;
+  document.getElementById("barra").style.width = (feitos / LACUNAS.length * 100) + "%";
+}
+function copiar(){
+  const selecionar = () => { const r = document.createRange(); r.selectNodeContents(saida); const s = getSelection(); s.removeAllRanges(); s.addRange(r); };
+  const falta = faltam();
+  const aviso = !falta ? "" : falta === 1 ? " Falta 1 lacuna para preencher." : " Faltam " + falta + " lacunas para preencher.";
+  const pronto = (navigator.clipboard && navigator.clipboard.writeText) ? navigator.clipboard.writeText(texto()) : Promise.reject();
+  const avisar = m => { status.textContent = m; document.getElementById("dockTxt").textContent = m; };
+  pronto.then(() => avisar("Prompt copiado." + aviso)).catch(() => { selecionar(); avisar("Texto selecionado. Use Copiar no seu teclado." + aviso); });
+}
+campos.forEach(c => { c.addEventListener("input", desenhar); c.addEventListener("change", desenhar); });
+document.getElementById("limpar").addEventListener("click", () => { campos.forEach(c => { c.value = ""; }); desenhar(); status.textContent = "Campos limpos."; });
+document.getElementById("copiar").addEventListener("click", copiar);
+document.getElementById("copiar2").addEventListener("click", copiar);
+desenhar();
+
+/* Logo em contorno: copia os traços do símbolo e recalcula a espessura pelo tamanho (regra 44). */
+const NS = "http://www.w3.org/2000/svg";
+const tracos = [...document.querySelectorAll("#star path")].map(p => p.getAttribute("d"));
+const estrelas = [...document.querySelectorAll("[data-star]")];
+estrelas.forEach(s => tracos.forEach((d, i) => ["o", "g"].forEach(k => {
+  const p = document.createElementNS(NS, "path");
+  p.setAttribute("d", d); p.setAttribute("class", k); p.setAttribute("pathLength", "100");
+  if (k === "g") p.style.animationDelay = (-i * 1.3) + "s";
+  s.appendChild(p);
+})));
+function espessura(){ estrelas.forEach(s => s.style.setProperty("--sw", 1.4 * 456 / Math.max(s.getBoundingClientRect().width, 1))); }
+espessura(); addEventListener("resize", espessura);
+
+/* Mapa: luz correndo do centro até cada fase */
+const raios = document.getElementById("spokes");
+[[220,52],[365,136],[365,304],[220,388],[75,304],[75,136]].forEach(([x, y], i) => {
+  const l = document.createElementNS(NS, "line");
+  l.setAttribute("class", "orbit__spoke");
+  l.setAttribute("x1", 220); l.setAttribute("y1", 220); l.setAttribute("x2", x); l.setAttribute("y2", y);
+  raios.appendChild(l);
+  const c = document.createElementNS(NS, "circle");
+  c.setAttribute("class", "orbit__dot"); c.setAttribute("r", 3); c.setAttribute("cx", 220); c.setAttribute("cy", 220);
+  raios.appendChild(c);
+  if (!matchMedia("(prefers-reduced-motion:reduce)").matches)
+    c.animate([{cx:"220px",cy:"220px",opacity:0},{opacity:1,offset:.2},{cx:x+"px",cy:y+"px",opacity:0}],{duration:1500,delay:i*1500,iterations:Infinity,iterationStart:0,easing:"ease-out"});
+});
+
+/* Entrada ao rolar e barra de copiar no celular */
+document.documentElement.classList.add("js");
+const vistos = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("on"); vistos.unobserve(e.target); } }), {threshold:.08});
+document.querySelectorAll(".rv").forEach(el => vistos.observe(el));
+const dock = document.getElementById("dock");
+new IntersectionObserver(([e]) => dock.classList.toggle("show", e.isIntersecting), {rootMargin:"-30% 0px -10% 0px"}).observe(document.getElementById("montar"));
+</script>
+</body>
+</html>
